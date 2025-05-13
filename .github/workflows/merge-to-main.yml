@@ -10,14 +10,18 @@ jobs:
   deploy-to-gh-pages:
     runs-on: ubuntu-latest
     steps:
+
+    # Add ssh-key for submodule checkout
+    - uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: |
+          ${{ secrets.PULL_KEY_REPO }}
+          ${{ secrets.REPO_KEY_MARK_RESUMES }}
+
     # checkout to the commit that has been pushed
     - uses: actions/checkout@v4
       with:
         submodules: recursive
-
-    - uses: webfactory/ssh-agent@v0.9.0
-      with:
-        ssh-private-key: ${{ secrets.REPO_KEY_MARK_RESUMES }}
 
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v3.0.0
