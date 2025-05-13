@@ -21,7 +21,18 @@ jobs:
     # checkout to the commit that has been pushed
     - uses: actions/checkout@v4
       with:
-        submodules: recursive
+        submodules: false
+
+    - name: get_subm
+      env:
+        SSHK: ${{ secrets.REPO_KEY_MARK_RESUMES }}
+      run: |
+        mkdir -p $HOME/.ssh
+        chmod 700 $HOME/.ssh
+        echo "$SSHK" > $HOME/.ssh/ssh.key
+        chmod 600 $HOME/.ssh/ssh.key
+        export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/ssh.key"
+        git submodule update --init --recursive
 
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v3.0.0
