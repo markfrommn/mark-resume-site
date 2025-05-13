@@ -11,18 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    # Add ssh-key for submodule checkout
-    - uses: webfactory/ssh-agent@v0.9.0
-      with:
-        ssh-private-key: |
-          ${{ secrets.PULL_KEY_REPO }}
-          ${{ secrets.REPO_KEY_MARK_RESUMES }}
-
     # checkout to the commit that has been pushed
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4.2.2
       with:
         submodules: false
 
+    # Use explicit key to update sub-modules
     - name: get_subm
       env:
         SSHK: ${{ secrets.REPO_KEY_MARK_RESUMES }}

@@ -10,7 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # checkout to the commit that has been pushed
-    - uses: actions/checkout@v4.1.1
+    - uses: actions/checkout@v4.2.2
+      with:
+        submodules: false
+
+    # Use explicit key to update sub-modules
+    - name: get_subm
+      env:
+        SSHK: ${{ secrets.REPO_KEY_MARK_RESUMES }}
+      run: |
+        mkdir -p $HOME/.ssh
+        chmod 700 $HOME/.ssh
+        echo "$SSHK" > $HOME/.ssh/ssh.key
+        chmod 600 $HOME/.ssh/ssh.key
+        export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/ssh.key"
+        git submodule update --init --recursive
 
     - name: Setup Node
       uses: actions/setup-node@v4
