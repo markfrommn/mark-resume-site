@@ -19,4 +19,4 @@ else
     myip=127.0.0.1
 fi
 
-hugo server  --bind=${myip} --baseURL=http://${myip}:1313 --disableFastRender --noHTTPCache
+hugo server  --bind=${myip} --baseURL=http://${myip}:1313 --disableFastRender --noHTTPCache -w
