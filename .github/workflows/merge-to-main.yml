@@ -12,7 +12,7 @@ jobs:
     steps:
 
     # checkout to the commit that has been pushed
-    - uses: actions/checkout@v4.2.2
+    - uses: actions/checkout@v4
       with:
         submodules: false
 
@@ -50,10 +50,24 @@ jobs:
     - name: Build
       run: hugo --minify
 
-    # push the generated content into the `gh-pages` branch.
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v4.0.0
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages
-        publish_dir: ./public
+        # Upload only the public directory
+        path: './public'
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
