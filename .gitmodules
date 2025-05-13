@@ -1,3 +1,3 @@
-[submodule "data/src"]
-	path = data/src
+[submodule "src"]
+	path = src
 	url = git@github.com:markfrommn/mark-resumes.git
