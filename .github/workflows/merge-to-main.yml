@@ -7,7 +7,7 @@ on:
     - main
 
 jobs:
-  deploy-to-gh-pages:
+  build:
     runs-on: ubuntu-latest
     steps:
 
