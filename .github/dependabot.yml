@@ -10,3 +10,13 @@ updates:
   labels:
   - "dependencies"
   - "automerge"
+version: 2
+updates:
+- package-ecosystem: "gitsubmodule"
+  directory: "/"
+  allow:
+    - dependency-name: "src"
+  schedule:
+    interval: "daily"
+  - "dependencies"
+  - "automerge"
