@@ -25,7 +25,7 @@ jobs:
     steps:
 
     # checkout to the commit that has been pushed
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         submodules: false
 
@@ -78,7 +78,7 @@ jobs:
     needs: build
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           submodules: false
       - name: Deploy to GitHub Pages
